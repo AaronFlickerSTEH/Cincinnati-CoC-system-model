@@ -1,0 +1,37 @@
+library(shiny)
+library(tidyverse)
+
+shinyUI(fluidPage(
+  tags$head(
+    tags$style(HTML(
+      "p{font-family:Arial}"
+    ))
+  ),
+  h1("Hamilton County CoC System Planner", align = "center"),
+  p("Adjust the amount of funding for each program type and click Submit to see projections for the next five years", align = "center"),
+  wellPanel(
+    fluidRow(
+      column(4, h3("Program Type")),
+      column(4, h3("General", align = "center")),
+      column(4, h3("Youth", align = "center"))),
+    fluidRow(
+      column(4, br(), h4("Rapid Re-Housing")),
+      column(4, numericInput("AdultRRH", "", min = 0, max = 4000000, value = 2100000, step = 100000)),
+      column(4, numericInput("YouthRRH", "", min = 0, max = 2000000, value = 900000, step = 100000))),
+    fluidRow(
+      column(4, br(), h4("Permanent Supportive Housing")),
+      column(4, numericInput("AdultPSH", "", min = 0, max = 20000000, value = 13500000, step = 100000)),
+      column(4, numericInput("YouthPSH", "", min = 0, max = 2000000, value = 1200000, step = 100000))),
+    fluidRow(
+      column(4, br(), h4("Prevention")),
+      column(4, numericInput("AdultPrevent", "", min = 0, max = 500000, value = 100000, step = 100000)),
+      column(4, numericInput("YouthPrevent", "", min = 0, max = 500000, value = 500000, step = 100000))),
+    fluidRow(
+      column(4, br(), h4("Transitional Housing")),
+      column(4, numericInput("AdultTH", "", min = 0, max = 500000, value = 300000, step = 100000)),
+      column(4, numericInput("YouthTH", "", min = 0, max = 250000, value = 100000, step = 100000))),
+    fluidRow(
+      column(4, offset = 5, actionButton("button", "Submit"))
+    )),
+  fluidRow(plotOutput("outcome"))
+))
